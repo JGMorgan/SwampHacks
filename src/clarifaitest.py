@@ -11,4 +11,8 @@ app = ClarifaiApp(content[0], content[1])
 model = app.models.get("general-v1.3")
 
 # predict with the model
-print model.predict_by_url(url='http://www.aronfelddev.com/wp-fla/files/2013/06/women-crossing-the-street.jpg')
+import json
+data = json.dumps(model.predict_by_url(url='http://www.parking.uci.edu/services/traffic/images/traffic-signals-signage/Pedestrian-Timing/walk.jpg')['outputs'])
+outputs = json.loads(data)[0]['data']['concepts']
+for element in outputs:
+    print element
