@@ -1,0 +1,3 @@
+[submodule "Veo-app"]
+	path = Veo-app
+	url = https://github.com/JGMorgan/Veo-app.git
