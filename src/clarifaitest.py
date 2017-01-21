@@ -1,5 +1,24 @@
 from clarifai import rest
 from clarifai.rest import ClarifaiApp
+from flask import Flask
+
+app = Flask(Veo)
+
+@app.route("/")
+def pictureCheck():
+    if(isCrosswalk()){return safeToCross()}
+    else {return otherObject()}
+
+
+def isCrosswalk():
+    return;
+
+def safeToCross():
+    return;
+
+def otherObject():
+    return;
+
 
 with open('../env/api_keys.txt') as f:
     content = f.readlines()
