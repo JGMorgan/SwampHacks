@@ -14,10 +14,10 @@ app = ClarifaiApp(content[0], content[1])
 links = ["https://driversed.com/images/v2008coursecontent/walking.jpg","http://il3.picdn.net/shutterstock/videos/2273915/thumb/1.jpg","http://www.parking.uci.edu/services/traffic/images/traffic-signals-signage/Pedestrian-Timing/walk.jpg"]
 for link in links:
     app.inputs.create_image_from_url(url=link, concepts=['walk signal'])
-    train = app.models.create('crossing', concepts=['walk signal'])
-    print train
-    train = app.models.get('{model_id}')
-    train.train()
+train = app.models.create('crossing', concepts=['walk signal'])
+print train
+train = app.models.get('{model_id}')
+train.train()
 
 # get the general model
 #model = app.models.get("{model_id}")
