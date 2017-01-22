@@ -5,6 +5,25 @@ from clarifai.rest import ClarifaiApp
 from flask import Flask
 from flask import request
 
+# parser
+
+with open('../env/api_keys.txt') as f:
+    content = f.readlines()
+
+content = [x.strip() for x in content]
+app = ClarifaiApp(content[0], content[1])
+
+# get the general model
+model = app.models.get("general-v1.3")
+
+link = 'http://www.parking.uci.edu/services/traffic/images/traffic-signals-signage/Pedestrian-Timing/walk.jpg'
+
+# predict with the model
+import json
+data = json.loads(json.dumps(model.predict_by_url(url=link)['outputs']))[0]['data']['concepts']
+hm = {}
+for element in data:
+    hm[element['name']] = element['value']
 
 app = Flask(__name__)
 
@@ -13,10 +32,10 @@ def hello():
     return "hello"
 
 def canCross():
-    if (isCrosswalk() && isWhiteMan() && !(isRedHand() || isDontWalk()))
-        return true
-    else
-        return false;
+    if (isCrosswalk() and isWhiteMan() and not(isRedHand() or isDontWalk())):
+        return True
+    else:
+        return False
 
 def isCrosswalk():
     return
