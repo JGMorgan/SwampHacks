@@ -30,11 +30,6 @@ class Veo extends Component {
   }
 
   takePicture() {
-      for (var i = 0; i < 5; i++) {
-          Vibration.vibrate(pattern);
-      }
-
-
       this.camera.capture().then((data) => {
           console.log(data);
           /*app.models.predict(Clarifai.GENERAL_MODEL, {base64: data['data']}).then(
@@ -55,7 +50,15 @@ class Veo extends Component {
                   Image: data['data'],
               })
           })
-      }).then((response) => console.log(response))
+      }).then((response) => {
+          console.log(JSON.stringify(response).includes('"content-length":["4"]'));
+          /*real hackathon code who coding*/
+          if (JSON.stringify(response).includes('"content-length":["4"]')) {
+              for (var i = 0; i < 5; i++) {
+                  Vibration.vibrate(pattern);
+              }
+          }
+      })
       .catch((error) => {console.log(error); return error});
   };
 };
