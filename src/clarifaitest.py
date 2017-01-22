@@ -21,7 +21,7 @@ def recv_base64():
     with open('../env/api_keys.txt') as f:
         content = f.readlines()
 
-    with open("./img.png", "wb") as fh:
+    with open("./img.jpg", "wb") as fh:
         fh.write(base64.decodestring(json.loads(request.data)['Image']))
 
 
@@ -29,8 +29,7 @@ def recv_base64():
     clarifai = ClarifaiApp(content[0], content[1])
     # get the general model
     model = clarifai.models.get("general-v1.3")
-    image = ClImage(file_obj=open('./img.png', 'rb'))
-    model.predict([image])
+    image = ClImage(file_obj=open('./img.jpg', 'rb'))
     # predict with the model
 
     data = json.loads(json.dumps(model.predict([image])))[0]['data']['concepts']
