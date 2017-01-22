@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def recv_base64():
-    print response.data
+    print request.data
     with open('../env/api_keys.txt') as f:
         content = f.readlines()
 
