@@ -5,16 +5,26 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  Vibration,
   TouchableHighlight,
   View
 } from 'react-native';
 import Camera from 'react-native-camera';
+/*var Clarifai = require('clarifai');
 
+  // initialize with your clientId and clientSecret
+
+var app = new Clarifai.App(
+    'BXEvhWobbYMoUMcViU5IQqPnrCznkcO9OQPJ80WU',
+    'sblr0t8X3gW-66fPqNomxxhbMR93CR0-NImSXsOx'
+);*/
+var pattern = [0, 500, 200, 500];
 class Veo extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Camera
+          captureTarget={Camera.constants.CaptureTarget.memory}
           ref={(cam) => {
             this.camera = cam;
           }}
@@ -27,19 +37,33 @@ class Veo extends Component {
   }
 
   takePicture() {
+      for (var i = 0; i < 5; i++) {
+          Vibration.vibrate(pattern);
+      }
+
+
       this.camera.capture().then((data) => {
           console.log(data);
-          fetch('http://localhost:5000', {
+          /*app.models.predict(Clarifai.GENERAL_MODEL, {base64: data['data']}).then(
+              function(response) {
+                  console.log(response);
+              },
+              function(err) {
+                  // there was an error
+              }
+          );*/
+          return fetch('https://httpbin.org/post', {
               method: 'POST',
               headers: {
-                      'Accept': '*/*',
-                      'Content-Type': 'application/json',
+                  'Accept': '*/*',
+                  'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                      img: 'data',
+                  Image: data['data'],
               })
           })
-      }).catch(err => console.error(err));
+      }).then((response) => console.log(response))
+      .catch((error) => {console.log(error); return error});
   };
 };
 
