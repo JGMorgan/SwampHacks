@@ -14,9 +14,12 @@ app = Flask(__name__)
 @app.route("/")
 def recv_base64():
     print request.data
+    print json.loads(request.data)['Image']
     with open('../env/api_keys.txt') as f:
         content = f.readlines()
-
+    import base64
+    with open("./img.png", "wb") as fh:
+        fh.write(base64.decodestring(json.loads(request.data)['Image']))
     content = [x.strip() for x in content]
     app = ClarifaiApp(content[0], content[1])
     # get the general model
