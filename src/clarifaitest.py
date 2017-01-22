@@ -33,9 +33,10 @@ def recv_base64():
     # predict with the model
     prediction = model.predict([image])
     print prediction
-    data = json.loads(json.dumps(prediction))['data']['concepts']
+    data = json.loads(json.dumps(prediction['outputs']))['data']['concepts']
     for element in data:
         hm[element['name']] = element['value']
+
     if (canCross(hm)):
         return 'True'
     return 'False'
