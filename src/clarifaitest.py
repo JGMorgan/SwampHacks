@@ -35,34 +35,34 @@ def recv_base64():
 
 
 
-def canCross():
-    if (isCrosswalk() and isWhiteMan() and not(isRedHand() or isDontWalk())):
+def canCross(hm):
+    if (isCrosswalk(hm) and isWhiteMan(hm) and not(isRedHand(hm) or isDontWalk(hm))):
         return True
     else:
         return False
 
-def isCrosswalk():
+def isCrosswalk(hm):
     crosswalk = hm.get('cross walk')
     if (crosswalk != "None"):
         if (crosswalk >= threshold):
             return True
     return False
 
-def isWhiteMan():
+def isWhiteMan(hm):
     whiteMan = hm.get('walk signal')
     if (whiteMan != "None"):
         if (whiteMan >= threshold):
             return True
     return False
 
-def isRedHand():
+def isRedHand(hm):
     redHand = hm.get('red hand')
     if (redHand != "None"):
         if (redHand >= threshold):
             return True
     return False
 
-def isDontWalk():
+def isDontWalk(hm):
     dontWalk = hm.get('dont walk')
     if (dontWalk != "None"):
         if (dontWalk >= threshold):
