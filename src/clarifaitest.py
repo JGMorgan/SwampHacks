@@ -10,31 +10,25 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    print "hello"
+    return "hello"
 
+def canCross():
+    if (isCrosswalk() && isWhiteMan() && !(isRedHand() || isDontWalk()))
+        return true
+    else
+        return false;
 
+def isCrosswalk():
+    return
 
-def train_clarifai():
-    with open('../env/api_keys.txt') as f:
-        content = f.readlines()
+def isWhiteMan():
+    return
 
-    content = [x.strip() for x in content]
-    app = ClarifaiApp(content[0], content[1])
+def isRedHand():
+    return
 
-    # get the general model
-    #model = app.models.get("{model_id}")
-
-    # predict with the model
-    model = app.models.get('general-v1.3')
-
-    import json
-    link = 'http://nacto.org/wp-content/themes/sink_nacto/views/design-guides/retrofit/urban-street-design-guide/images/conventional-crosswalks/carousel//crystalcity_nn.jpg'
-
-    print link
-    data = json.dumps(model.predict_by_url(url=link)['outputs'])
-    outputs = json.loads(data)[0]['data']['concepts']
-    for element in outputs:
-        print element
+def isDontWalk():
+    return
 
 if __name__ == "__main__":
     app.run()

@@ -27,22 +27,21 @@ class Veo extends Component {
   }
 
   takePicture() {
-    this.camera.capture()
-      .then((data) => {
-        console.log(data);
-        fetch('http://localhost:5000/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          img: 'data',
-        })
-    })
-  }).catch(err => console.error(err));
-  }
-}
+      this.camera.capture().then((data) => {
+          console.log(data);
+          fetch('http://localhost:5000', {
+              method: 'POST',
+              headers: {
+                      'Accept': '*/*',
+                      'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                      img: 'data',
+              })
+          })
+      }).catch(err => console.error(err));
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
