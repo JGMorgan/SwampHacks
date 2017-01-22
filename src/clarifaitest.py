@@ -31,8 +31,9 @@ def recv_base64():
     model = clarifai.models.get("general-v1.3")
     image = ClImage(file_obj=open('./img.jpg', 'rb'))
     # predict with the model
-
-    data = json.loads(json.dumps(model.predict([image])))[0]['data']['concepts']
+    prediction = model.predict([image])
+    print prediction
+    data = json.loads(json.dumps(prediction))[0]['data']['concepts']
     for element in data:
         hm[element['name']] = element['value']
     if (canCross(hm)):
