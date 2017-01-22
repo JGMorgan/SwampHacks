@@ -13,6 +13,8 @@ with open('../env/api_keys.txt') as f:
 content = [x.strip() for x in content]
 app = ClarifaiApp(content[0], content[1])
 
+threshold = .85
+
 # get the general model
 model = app.models.get("general-v1.3")
 
@@ -38,16 +40,32 @@ def canCross():
         return False
 
 def isCrosswalk():
-    return
+    crosswalk = hm.get('cross walk')
+    if (crosswalk != "None"):
+        if (crosswalk >= threshold):
+            return True
+    return False
 
 def isWhiteMan():
-    return
+    whiteMan = hm.get('walk signal')
+    if (whiteMan != "None"):
+        if (whiteMan >= threshold):
+            return True
+    return False
 
 def isRedHand():
-    return
+    redHand = hm.get('red hand')
+    if (redHand != "None"):
+        if (redHand >= threshold):
+            return True
+    return False
 
 def isDontWalk():
-    return
+    dontWalk = hm.get('dont walk')
+    if (dontWalk != "None"):
+        if (dontWalk >= threshold):
+            return True
+    return False
 
 if __name__ == "__main__":
     app.run()
