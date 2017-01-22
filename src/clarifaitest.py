@@ -5,13 +5,11 @@ from clarifai.rest import ClarifaiApp
 from flask import Flask
 from flask import request
 
-# parser
-
-
 link = 'http://www.parking.uci.edu/services/traffic/images/traffic-signals-signage/Pedestrian-Timing/walk.jpg'
 app = Flask(__name__)
 
 threshold = .85
+hm = {}
 
 @app.route("/")
 def recv_base64():
@@ -27,10 +25,11 @@ def recv_base64():
     # predict with the model
     import json
     data = json.loads(json.dumps(model.predict_by_url(url=link)['outputs']))[0]['data']['concepts']
-    hm = {}
     for element in data:
         hm[element['name']] = element['value']
-    print hm
+    if (canCross(hm)):
+        return True
+    return False
 
 
 def canCross(hm):
