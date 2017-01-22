@@ -8,7 +8,7 @@ import json
 import base64
 # parser
 
-link = 'http://www.parking.uci.edu/services/traffic/images/traffic-signals-signage/Pedestrian-Timing/walk.jpg'
+#link = 'http://www.parking.uci.edu/services/traffic/images/traffic-signals-signage/Pedestrian-Timing/walk.jpg'
 app = Flask(__name__)
 
 threshold = .85
@@ -23,19 +23,22 @@ def recv_base64():
 
     with open("./img.png", "wb") as fh:
         fh.write(base64.decodestring(json.loads(request.data)['Image']))
+
+
     content = [x.strip() for x in content]
     clarifai = ClarifaiApp(content[0], content[1])
     # get the general model
     model = clarifai.models.get("general-v1.3")
-
+    image = ClImage(file_obj=open('./img.png', 'rb'))
+    model.predict([image])
     # predict with the model
 
-    data = json.loads(json.dumps(model.predict_by_url(url=link)['outputs']))[0]['data']['concepts']
+    data = json.loads(json.dumps(model.predict([image])))[0]['data']['concepts']
     for element in data:
         hm[element['name']] = element['value']
     if (canCross(hm)):
-        return True
-    return False
+        return 'True'
+    return 'False'
 
 
 def canCross(hm):
