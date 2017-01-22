@@ -13,8 +13,6 @@ app = Flask(__name__)
 
 threshold = .85
 
-# get the general model
-model = app.models.get("general-v1.3")
 @app.route("/")
 def recv_base64():
     print request.data
@@ -22,9 +20,9 @@ def recv_base64():
         content = f.readlines()
 
     content = [x.strip() for x in content]
-    app = ClarifaiApp(content[0], content[1])
+    clarifai = ClarifaiApp(content[0], content[1])
     # get the general model
-    model = app.models.get("general-v1.3")
+    model = clarifai.models.get("general-v1.3")
 
     # predict with the model
     import json
@@ -32,7 +30,7 @@ def recv_base64():
     hm = {}
     for element in data:
         hm[element['name']] = element['value']
-
+    print hm
 
 
 def canCross(hm):
