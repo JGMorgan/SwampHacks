@@ -10,14 +10,7 @@ import {
   View
 } from 'react-native';
 import Camera from 'react-native-camera';
-/*var Clarifai = require('clarifai');
 
-  // initialize with your clientId and clientSecret
-
-var app = new Clarifai.App(
-    'BXEvhWobbYMoUMcViU5IQqPnrCznkcO9OQPJ80WU',
-    'sblr0t8X3gW-66fPqNomxxhbMR93CR0-NImSXsOx'
-);*/
 var pattern = [0, 500, 200, 500];
 class Veo extends Component {
   render() {
@@ -52,7 +45,7 @@ class Veo extends Component {
                   // there was an error
               }
           );*/
-          return fetch('https://httpbin.org/post', {
+          return fetch('http://45.33.5.10:5000/', {
               method: 'POST',
               headers: {
                   'Accept': '*/*',
